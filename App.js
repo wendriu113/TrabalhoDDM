@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Ionicons as Icon } from '@expo/vector-icons';
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import React, { useContext } from 'react';
 import { AuthProvider, AuthContext } from './AuthContext';
 import { TemaProvider } from './TemaContext';
@@ -67,17 +67,17 @@ function AppNavigator() {
       <Tab.Screen name="Inicio" component={HomeStack}
         options={{
           headerShown: false, // Esconde o cabeçalho da Tab para não dar conflito
-          tabBarIcon: ({color, size}) => <Icon name='paw' size={size} color={color}/>
+          tabBarIcon: ({color, size}) => <Icon name='pokeball' size={size} color={color}/>
         }}
       />
       <Tab.Screen name="Explorar" component={Explorar}
         options={{
-          tabBarIcon: ({color, size}) => <Icon name='search' size={size} color={color}/>
+          tabBarIcon: ({color, size}) => <Icon name='card-bulleted' size={size} color={color}/>
         }}
       />
       <Tab.Screen name="Favoritos" component={Favoritos}
         options={{
-          tabBarIcon: ({color, size}) => <Icon name='heart' size={size} color={color}/>
+          tabBarIcon: ({color, size}) => <Icon name='dna' size={size} color={color}/>
         }}
       />
       <Tab.Screen name="Configurações" component={MeuPerfil}

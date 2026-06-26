@@ -85,6 +85,7 @@ export const DADOS_POKEMONS = [
   { id: '81', nome: 'Dragonite', tipos: 'Dragão / Voador', imagem: 'https://img.pokemondb.net/artwork/large/dragonite.jpg' },
   { id: '82', nome: 'Mewtwo', tipos: 'Psíquico', imagem: 'https://img.pokemondb.net/artwork/large/mewtwo.jpg' },
   { id: '83', nome: 'Mew', tipos: 'Psíquico', imagem: 'https://img.pokemondb.net/artwork/large/mew.jpg' },
+  { id: '84', nome: 'Marshadow', tipos: 'Lutador / Fantasma', imagem: 'https://img.pokemondb.net/artwork/large/marshadow.jpg' },
 ];
 
 export function FavoritosProvider({ children }) {

@@ -6,6 +6,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons as Icon } from '@expo/vector-icons';
+import React, { useContext } from 'react';
+import { AuthProvider, AuthContext } from './AuthContext';
 import { TemaProvider } from './TemaContext';
 import { FavoritosProvider } from './FavoritosContext';
 import { TimeProvider } from './TimeContext';
@@ -15,6 +17,7 @@ import Detalhes from './screens/Detalhes';
 import Explorar from './screens/Explorar';
 import Favoritos from './screens/Favoritos';
 import MeuPerfil from './screens/MeuPerfil';
+import Autenticacao from './screens/Autenticacao';
 import TelaDrawer1 from './screens/TelaDrawer1'; // 
 import TelaDrawer2 from './screens/TelaDrawer2'; //
 import TelaDrawer3 from './screens/TelaDrawer3'; //
@@ -88,7 +91,17 @@ function AppNavigator() {
   );
 }
 
-export default function App() {
+function RootContent() {
+  const { usuario, carregandoBanco } = useContext(AuthContext);
+
+  if (carregandoBanco) {
+    return <Autenticacao modoCarregamento />;
+  }
+
+  if (!usuario) {
+    return <Autenticacao />;
+  }
+
   return (
     <TemaProvider>
       <FavoritosProvider>
@@ -97,5 +110,13 @@ export default function App() {
         </TimeProvider>
       </FavoritosProvider>
     </TemaProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <RootContent />
+    </AuthProvider>
   );
 }

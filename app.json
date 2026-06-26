@@ -14,7 +14,11 @@
     "ios": {
       "supportsTablet": true
     },
+    "plugins": [
+      "expo-sqlite"
+    ],
     "android": {
+      "package": "com.trabalhoddm.buttontabs",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",

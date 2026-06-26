@@ -31,7 +31,7 @@ export default StyleSheet.create({
     containerExplorar: {
         flex: 1,
         backgroundColor: '#fff',
-        paddingTop: 20,
+        paddingTop: 10,
     },
 
     containerFavoritos: {
@@ -43,7 +43,7 @@ export default StyleSheet.create({
     containerExplorarDark: {
         flex: 1,
         backgroundColor: '#1a1a1a',
-        paddingTop: 20,
+        paddingTop: 10,
     },
 
     containerFavoritosDark: {
@@ -167,20 +167,217 @@ export default StyleSheet.create({
 
     // Explorar styles (Light)
     tituloExplorar: {
-        fontSize: 22,
+        fontSize: 19,
         fontWeight: 'bold',
-        marginLeft: 20,
-        marginBottom: 10,
+        marginLeft: 0,
+        marginBottom: 6,
         color: '#8A2BE2',
     },
 
     // Explorar styles (Dark)
     tituloExplorarDark: {
-        fontSize: 22,
+        fontSize: 19,
         fontWeight: 'bold',
-        marginLeft: 20,
-        marginBottom: 10,
+        marginLeft: 0,
+        marginBottom: 6,
         color: '#BB86FC',
+    },
+
+    exploreHero: {
+        marginHorizontal: 12,
+        marginTop: 8,
+        marginBottom: 10,
+        padding: 14,
+        borderRadius: 16,
+        backgroundColor: '#F6D1E4',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.06,
+        shadowRadius: 8,
+        elevation: 3,
+    },
+
+    exploreHeroDark: {
+        marginHorizontal: 12,
+        marginTop: 8,
+        marginBottom: 10,
+        padding: 14,
+        borderRadius: 16,
+        backgroundColor: '#232323',
+        borderLeftColor: '#BB86FC',
+        borderLeftWidth: 4,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.22,
+        shadowRadius: 8,
+        elevation: 3,
+    },
+
+    exploreEyebrow: {
+        fontSize: 11,
+        fontWeight: '800',
+        letterSpacing: 1,
+        textTransform: 'uppercase',
+        color: '#8A2BE2',
+        marginBottom: 4,
+    },
+
+    exploreEyebrowDark: {
+        fontSize: 11,
+        fontWeight: '800',
+        letterSpacing: 1,
+        textTransform: 'uppercase',
+        color: '#BB86FC',
+        marginBottom: 4,
+    },
+
+    exploreSubtitle: {
+        fontSize: 13,
+        color: '#555',
+        marginBottom: 10,
+        lineHeight: 18,
+    },
+
+    exploreSubtitleDark: {
+        fontSize: 13,
+        color: '#D0C8E8',
+        marginBottom: 10,
+        lineHeight: 18,
+    },
+
+    exploreStats: {
+        flexDirection: 'row',
+        gap: 8,
+        marginBottom: 10,
+    },
+
+    exploreStatsDark: {
+        flexDirection: 'row',
+        gap: 8,
+        marginBottom: 10,
+    },
+
+    statChip: {
+        flex: 1,
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        paddingVertical: 8,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: '#f0d3df',
+    },
+
+    statChipDark: {
+        flex: 1,
+        backgroundColor: '#2f2f2f',
+        borderRadius: 12,
+        paddingVertical: 8,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: '#4a3e63',
+    },
+
+    statChipLabel: {
+        fontSize: 12,
+        color: '#7a3db8',
+        fontWeight: '700',
+        marginBottom: 2,
+    },
+
+    statChipLabelDark: {
+        fontSize: 12,
+        color: '#D0C8E8',
+        fontWeight: '700',
+        marginBottom: 2,
+    },
+
+    statChipValue: {
+        fontSize: 18,
+        color: '#333',
+        fontWeight: '900',
+    },
+
+    statChipValueDark: {
+        fontSize: 18,
+        color: '#FFFFFF',
+        fontWeight: '900',
+    },
+
+    searchInput: {
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        paddingHorizontal: 14,
+        paddingVertical: 12,
+        borderWidth: 1,
+        borderColor: '#e7bfd0',
+        fontSize: 14,
+        color: '#333',
+    },
+
+    searchInputDark: {
+        backgroundColor: '#1e1e1e',
+        borderRadius: 12,
+        paddingHorizontal: 14,
+        paddingVertical: 12,
+        borderWidth: 1,
+        borderColor: '#4a3e63',
+        fontSize: 14,
+        color: '#fff',
+    },
+
+    listContent: {
+        paddingBottom: 18,
+        paddingTop: 2,
+    },
+
+    emptyListContent: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        paddingBottom: 18,
+    },
+
+    emptyState: {
+        marginHorizontal: 12,
+        backgroundColor: '#f5f5f5',
+        borderRadius: 14,
+        padding: 18,
+        alignItems: 'center',
+    },
+
+    emptyStateDark: {
+        marginHorizontal: 12,
+        backgroundColor: '#2a2a2a',
+        borderRadius: 14,
+        padding: 18,
+        alignItems: 'center',
+        borderColor: '#BB86FC',
+        borderWidth: 1,
+    },
+
+    emptyStateTitle: {
+        fontSize: 17,
+        fontWeight: '800',
+        color: '#333',
+        marginBottom: 6,
+    },
+
+    emptyStateTitleDark: {
+        fontSize: 17,
+        fontWeight: '800',
+        color: '#fff',
+        marginBottom: 6,
+    },
+
+    emptyStateText: {
+        fontSize: 13,
+        color: '#666',
+        textAlign: 'center',
+    },
+
+    emptyStateTextDark: {
+        fontSize: 13,
+        color: '#BDBDBD',
+        textAlign: 'center',
     },
 
     item: {
@@ -432,15 +629,49 @@ export default StyleSheet.create({
     },
 
     // Pokémon Item Styles
+    pokemonCard: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#F8C8DC',
+        padding: 14,
+        marginVertical: 6,
+        marginHorizontal: 12,
+        borderRadius: 14,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 2,
+    },
+
+    pokemonCardDark: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#2a2a2a',
+        padding: 14,
+        marginVertical: 6,
+        marginHorizontal: 12,
+        borderRadius: 14,
+        borderLeftColor: '#BB86FC',
+        borderLeftWidth: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 3,
+        elevation: 2,
+    },
+
     pokemonItem: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: '#F8C8DC',
-        padding: 16,
-        marginVertical: 8,
-        marginHorizontal: 16,
-        borderRadius: 12,
+        padding: 14,
+        marginVertical: 6,
+        marginHorizontal: 12,
+        borderRadius: 14,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
@@ -453,10 +684,10 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: '#2a2a2a',
-        padding: 16,
-        marginVertical: 8,
-        marginHorizontal: 16,
-        borderRadius: 12,
+        padding: 14,
+        marginVertical: 6,
+        marginHorizontal: 12,
+        borderRadius: 14,
         borderLeftColor: '#BB86FC',
         borderLeftWidth: 3,
         shadowColor: '#000',
@@ -469,52 +700,52 @@ export default StyleSheet.create({
     pokemonInfo: {
         flex: 1,
         justifyContent: 'center',
-        marginLeft: 12,
+        marginLeft: 10,
     },
 
     pokemonImagem: {
-        width: 80,
-        height: 80,
-        borderRadius: 10,
+        width: 64,
+        height: 64,
+        borderRadius: 12,
     },
 
     pokemonNome: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         color: '#333',
-        marginBottom: 4,
+        marginBottom: 3,
     },
 
     pokemonNomeDark: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         color: '#FFFFFF',
-        marginBottom: 4,
+        marginBottom: 3,
     },
 
     pokemonTipo: {
-        fontSize: 14,
+        fontSize: 12,
         color: '#666',
     },
 
     pokemonTipoDark: {
-        fontSize: 14,
+        fontSize: 12,
         color: '#BDBDBD',
     },
 
     botaoFavoritar: {
-        paddingHorizontal: 12,
-        paddingVertical: 8,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
         justifyContent: 'center',
         alignItems: 'center',
     },
 
     iconeFavoritado: {
-        fontSize: 24,
+        fontSize: 22,
     },
 
     iconeFavoritadoAtivo: {
-        fontSize: 24,
+        fontSize: 22,
     },
 
     // Time Screen Styles

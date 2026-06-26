@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useRef, useState } from 'react';
+import { getAppDatabase, parseJsonArray } from './appStorage';
 
 export const FavoritosContext = createContext();
 
@@ -88,16 +89,85 @@ export const DADOS_POKEMONS = [
   { id: '84', nome: 'Marshadow', tipos: 'Lutador / Fantasma', imagem: 'https://img.pokemondb.net/artwork/large/marshadow.jpg' },
 ];
 
-export function FavoritosProvider({ children }) {
+export function FavoritosProvider({ children, usuarioId }) {
   const [favoritos, setFavoritos] = useState([]);
   const [pokemonsCadastrados, setPokemonsCadastrados] = useState([]);
+  const [carregandoDados, setCarregandoDados] = useState(true);
+  const dadosCarregadosRef = useRef(false);
+
+  useEffect(() => {
+    let ativo = true;
+
+    async function carregarDadosDoUsuario() {
+      dadosCarregadosRef.current = false;
+      setCarregandoDados(true);
+
+      if (!usuarioId) {
+        setFavoritos([]);
+        setPokemonsCadastrados([]);
+        if (ativo) {
+          setCarregandoDados(false);
+        }
+        return;
+      }
+
+      try {
+        const banco = await getAppDatabase();
+        const dados = await banco.getFirstAsync(
+          'SELECT favoritos_json, pokemons_json FROM favoritos_usuario WHERE usuario_id = ?',
+          usuarioId
+        );
+
+        if (!ativo) {
+          return;
+        }
+
+        setFavoritos(parseJsonArray(dados?.favoritos_json, []));
+        setPokemonsCadastrados(parseJsonArray(dados?.pokemons_json, []));
+        dadosCarregadosRef.current = true;
+      } catch {
+        if (ativo) {
+          setFavoritos([]);
+          setPokemonsCadastrados([]);
+        }
+      } finally {
+        if (ativo) {
+          setCarregandoDados(false);
+        }
+      }
+    }
+
+    carregarDadosDoUsuario();
+
+    return () => {
+      ativo = false;
+    };
+  }, [usuarioId]);
+
+  useEffect(() => {
+    if (!usuarioId || carregandoDados || !dadosCarregadosRef.current) {
+      return;
+    }
+
+    async function salvarDadosDoUsuario() {
+      const banco = await getAppDatabase();
+      await banco.runAsync(
+        'INSERT OR REPLACE INTO favoritos_usuario (usuario_id, favoritos_json, pokemons_json) VALUES (?, ?, ?)',
+        usuarioId,
+        JSON.stringify(favoritos),
+        JSON.stringify(pokemonsCadastrados)
+      );
+    }
+
+    salvarDadosDoUsuario();
+  }, [usuarioId, favoritos, pokemonsCadastrados, carregandoDados]);
 
   const toggleFavorito = (id) => {
-    if (favoritos.includes(id)) {
-      setFavoritos(favoritos.filter(fav => fav !== id));
-    } else {
-      setFavoritos([...favoritos, id]);
-    }
+    setFavoritos((favoritosAtuais) => (
+      favoritosAtuais.includes(id)
+        ? favoritosAtuais.filter(fav => fav !== id)
+        : [...favoritosAtuais, id]
+    ));
   };
 
   const getPokemonsFavoritos = () => {
@@ -113,7 +183,7 @@ export function FavoritosProvider({ children }) {
       tipos,
       imagem
     };
-    setPokemonsCadastrados([...pokemonsCadastrados, novoPokemon]);
+    setPokemonsCadastrados((pokemonsAtuais) => [...pokemonsAtuais, novoPokemon]);
     return novoPokemon;
   };
 
@@ -122,7 +192,7 @@ export function FavoritosProvider({ children }) {
   };
 
   return (
-    <FavoritosContext.Provider value={{ favoritos, toggleFavorito, getPokemonsFavoritos, adicionarPokemon, getTodosPokemonsComCadastrados, pokemonsCadastrados }}>
+    <FavoritosContext.Provider value={{ favoritos, toggleFavorito, getPokemonsFavoritos, adicionarPokemon, getTodosPokemonsComCadastrados, pokemonsCadastrados, carregandoDados }}>
       {children}
     </FavoritosContext.Provider>
   );

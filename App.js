@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler'; 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,9 +8,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import React, { useContext } from 'react';
 import { AuthProvider, AuthContext } from './AuthContext';
-import { TemaProvider } from './TemaContext';
-import { FavoritosProvider } from './FavoritosContext';
-import { TimeProvider } from './TimeContext';
+import { TemaProvider, TemaContext } from './TemaContext';
+import { FavoritosProvider, FavoritosContext } from './FavoritosContext';
+import { TimeProvider, TimeContext } from './TimeContext';
 
 import Home from './screens/Home';
 import Detalhes from './screens/Detalhes';
@@ -91,6 +91,27 @@ function AppNavigator() {
   );
 }
 
+function LoadingScreen() {
+  return (
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#8A2BE2" />
+      <Text style={styles.loadingText}>Carregando seus dados...</Text>
+    </View>
+  );
+}
+
+function AppContent() {
+  const { carregandoDados: carregandoTema } = useContext(TemaContext);
+  const { carregandoDados: carregandoFavoritos } = useContext(FavoritosContext);
+  const { carregandoDados: carregandoTime } = useContext(TimeContext);
+
+  if (carregandoTema || carregandoFavoritos || carregandoTime) {
+    return <LoadingScreen />;
+  }
+
+  return <AppNavigator />;
+}
+
 function RootContent() {
   const { usuario, carregandoBanco } = useContext(AuthContext);
 
@@ -103,15 +124,30 @@ function RootContent() {
   }
 
   return (
-    <TemaProvider>
-      <FavoritosProvider>
-        <TimeProvider>
-          <AppNavigator />
+    <TemaProvider usuarioId={usuario.id}>
+      <FavoritosProvider usuarioId={usuario.id}>
+        <TimeProvider usuarioId={usuario.id}>
+          <AppContent />
         </TimeProvider>
       </FavoritosProvider>
     </TemaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F7FAFC',
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#0F172A',
+  },
+});
 
 export default function App() {
   return (
@@ -120,3 +156,6 @@ export default function App() {
     </AuthProvider>
   );
 }
+
+
+
